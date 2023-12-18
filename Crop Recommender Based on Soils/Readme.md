@@ -1,5 +1,3 @@
- Here is a draft README for the crop recommendation code:
-
 # Crop Recommendation System
 
 This project builds a model to recommend which crop to grow based on soil properties and climate conditions.
