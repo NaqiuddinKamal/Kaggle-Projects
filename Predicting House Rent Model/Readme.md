@@ -1,46 +1,24 @@
- # House Rental Price Prediction
+# House Rental Price Prediction
 
-This project aims to predict house rental prices based on various features related to the property listing.
+Predict listing rent using Decision Tree and Random Forest regression.
 
-## Data Processing
+## Method
 
-The raw data is preprocessed by:
+Drop Posted On, Floor and Area Locality. Reserve 20% of rows with random state 42 and remove numerical outliers from training rows only. OneHotEncoder is fitted inside each training-CV fold and handles unseen categories. GridSearchCV uses five folds and mean squared error for both models; predictions use the selected best_estimator_.
 
-- Removing unwanted columns like "Posted On" 
-- Dropping columns with many unique categorical values like "Floor" and "Area Locality"
-- Label encoding the remaining categorical features
+Each feature-importance table and chart uses its own model and transformed feature names. The Random Forest chart now sorts imp_df rather than the Decision Tree lap_df. Metrics use the entire holdout; SHAP summary and waterfall plots explain its first 200 rows to bound execution cost.
 
-## Exploratory Data Analysis
+## Validated result
 
-Some visualizations are created to understand data distributions:
+Clean run on 4 October 2026:
 
-- Bar plots showing average rent by categories like Area Type, City etc.
-- Pie charts showing distribution of top categories for features like Area Type, Furnishing Status etc.  
-- Boxplots and violinplots to see distributions of numerical features like Size, Number of Bedrooms etc.
+| Model | MAE | RMSE | R-squared | MAPE |
+|---|---:|---:|---:|---:|
+| Decision Tree | 16,914.5129 | 60,150.8237 | 0.0922 | 48.91% |
+| Random Forest | 12,591.2989 | 41,353.3243 | 0.5709 | 40.28% |
 
-Correlation heatmap is also plotted to see relationships between features. 
+The historical dataset contains wide rent variation and large prediction errors. These are exploratory holdout results, not evidence of current-market accuracy. Pre-split EDA is descriptive; model preprocessing and tuning do not use holdout labels.
 
-## Model Building
+## Run
 
-The data is split into training and test sets. Outliers in the numerical features are removed from training data using z-scores.
-
-Two models are trained:
-
-- Decision Tree Regressor 
-- Random Forest Regressor
-
-Hyperparameter tuning is done using GridSearchCV to find the best parameters.
-
-Performance metrics calculated:
-
-- MAE, MSE, RMSE
-- R-squared
-- MAPE
-
-Feature importance plots are created to understand which features are most informative to the models.
-
-SHAP summary plots and waterfall plots are also analyzed.
-
-## Conclusion
-
-In the end, the report summarizes which model performs better for this case of rental price prediction. The important features driving the prediction are also highlighted. Scope for future work is discussed.
+Use requirements.txt and run all notebook cells in order. The CSV may sit beside the notebook or under its project folder when starting from the repository root. The original Kaggle input path remains a fallback. SHAP is installed through pinned requirements, not from a notebook shell command. See the root README for automated execution.
